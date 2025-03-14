@@ -3,12 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Filament\Panel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -23,6 +25,13 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function canAccessPanel(Panel $panel): bool {
+        // Your logic to determine if the user can access the panel.
+        // This could be based on roles, permissions, or any other criteria.
+        return true; // or false, depending on your logic
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.
